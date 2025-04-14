@@ -1,4 +1,4 @@
-let resList = [
+const resList = [
     {
       type: "restaurant",
       data: {

@@ -3,7 +3,7 @@
     justify-content: space-between;
     border: 1px solid black;
     align-items: center;
-    padding: 10px;
+    padding: 8px;
 }
 
 .logo {
@@ -76,4 +76,21 @@
 .filter-btn{
     margin:10px;
     cursor:pointer;
+}
+.shimmer-container{
+    display:flex;
+}
+.shimmer-card{
+    width:200px;
+    height:400px;
+    background-color:#f0f0f0;
+    margin:20px;
+}
+.login{
+    padding:0 35px;
+    cursor:pointer;
+}
+.filter{
+    margin:2px;
+    display:flex;
 }

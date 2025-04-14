@@ -1,5 +1,14 @@
  import {LOGO_URL} from "../utilis/constants.js";
+ import {useState,useEffect} from "react";
  const Header=()=>{
+ const [btnNameReact,setbtnNameReact]=useState("Login");
+
+ // if no dependency array=> useEffect is called on every render
+ // if the dependencies array is empty =[]=> useEffect is called on initial
+ useEffect(()=>{
+  console.log("useEffect called");
+ },[]);
+
   return (
    <div className="header">
    <div className="logo-container">
@@ -14,6 +23,14 @@
          <li>About Us</li>
          <li>Contact Us</li>
          <li>Cart</li>
+         <button className="login"
+          onClick={()=>{
+            btnNameReact==="Login"
+            ?setbtnNameReact("Logout")
+            :setbtnNameReact("Login");
+          }}
+          >
+            {btnNameReact}</button>
          </ul>
           </div>    
    </div>   
