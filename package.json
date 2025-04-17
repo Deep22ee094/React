@@ -6,7 +6,9 @@
   "dependencies": {
     "git": "^0.1.5",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-router": "^6.30.0",
+    "react-router-dom": "^6.30.0"
   },
   "devDependencies": {
     "parcel": "^2.13.3",
@@ -21,8 +23,7 @@
     "type": "git",
     "url": "https://github.com/Deep22ee094/React/commits?author=Deep22ee094"
   },
-  "keywords": []
-   ,
+  "keywords": [],
   "author": "Deep",
   "license": "ISC"
 }
