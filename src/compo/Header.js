@@ -30,14 +30,7 @@
           <Link to="/contact"> Contact Us </Link>
           </li>
          <li>Cart</li>
-         <button className="login"
-          onClick={()=>{
-            btnNameReact==="Login"
-            ?setbtnNameReact("Logout")
-            :setbtnNameReact("Login");
-          }}
-          >
-            {btnNameReact}</button>
+         <Link className="login" to="/login"> Login </Link>
          </ul>
           </div>    
    </div>   

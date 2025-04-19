@@ -1,8 +1,11 @@
 import {CDN_URL} from "../utilis/constants.js";
 const ResturantCard=(props)=>{
+    console.log("props",props)
     const {resData}=props;
-    const {cloudinaryImageId,name,avgRating,cuisine,costForTwo,deliveryTime}=resData?.data;
-   
+
+    const {cloudinaryImageId ,name,avgRating,cuisine,costForTwo,deliveryTime}=resData
+
+
        return(
    <div className="res-card" style={{backgroundColor:"#f0f0f0"}}>
     <img 

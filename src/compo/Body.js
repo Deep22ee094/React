@@ -1,6 +1,6 @@
-import ResturantCard from "./ResturantCard";
+import ResturantCard from "./ResturantCard.js";
 import { useState,useEffect} from "react";
-// import Shimmer from "./Shimmer.js";
+import Shimmer from "./Shimmer.js";
 import resList from "../utilis/MockData.js";
 
 
@@ -10,27 +10,35 @@ import resList from "../utilis/MockData.js";
 
 const Body = () => { 
   // Local state variable - Super powerful variable
-  const [resListResturant, setResListResturant] = useState(resList);
-  const [filteredResturant,setfilteredResturant]=useState(resList);
+  const [resListResturant, setResListResturant] = useState([]);
+  const [filteredResturant,setfilteredResturant]=useState([]);
   const[searchText,setsearchText]=useState("");
 
-  //  useEffect(()=>{
-  //   fetchData();
-  //  },[]);
+   useEffect(()=>{
+    fetchData();
+   },[]);
 
-  //  const fetchData = async () => {
-    
-  //     const data = await fetch(
-  //       "https://corsproxy.io/?https://www.swiggy.com/mapi/restaurants/list/v5?offset=0&is-seo-homepage-enabled=true&lat=23.8408767&lng=91.42141960000001&carousel=true&third_party_vendor=1"
-  //     );
+   const fetchData = async () => {
+      const data = await fetch(
+         "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9716&lng=77.5946&page_type=DESKTOP_WEB_LISTING"
+      );
   
-  //     const json = await data.json();
-  //     console.log(json);
-  //     setResListResturant(json?.data?.cards[2]?.data?.data?.cards);
-  // };
-  // if(resListResturant.length===0){
-  //   return <Shimmer/>;
-  // }
+      const json = await data.json();
+      console.log("ha jjjjjjj ",json);
+
+      const restaurantCards = json?.data?.cards?.find(
+        (card) =>
+          card?.card?.card?.gridElements?.infoWithStyle.restaurants
+      )?.card?.card?.gridElements?.infoWithStyle.restaurants;
+
+
+      console.log("haji",restaurantCards);
+      setResListResturant(restaurantCards || []);
+
+  };
+  if(resListResturant.length===0){
+    return <Shimmer/>;
+  }
   
 
   return (
@@ -42,10 +50,10 @@ const Body = () => {
           }}/>
           <button 
           onClick={()=>{
-            console.log(searchText);
-            const filteredResturant=resListResturant.filter((res)=> res.data.name.toLowerCase().includes(searchText.toLowerCase())
-
+            console.log("seachtext",searchText);
+            const filteredResturant=resListResturant.filter((res)=> res.info.name.toLowerCase().includes(searchText.toLowerCase())
           );
+          console.log("filteredResturant1",filteredResturant)
           setfilteredResturant(filteredResturant);
           }}>
             Search</button>
@@ -53,8 +61,8 @@ const Body = () => {
         <button
           className="filter-btn"
           onClick={() => { // ✅ Fixed `onClick` typo
-            const filteredList = resList.filter( // ✅ Use `resList` to always filter from the original list
-              (res) => res.data.avgRating > 4
+            const filteredList = resListResturant.filter( // ✅ Use `resList` to always filter from the original list
+              (res) => res.info.avgRating >4.5
             );
             setResListResturant(filteredList);
           }}
@@ -63,12 +71,14 @@ const Body = () => {
         </button>
       </div> 
       <div className="res-container">
-        {resListResturant.length > 0 ? ( 
-          filteredResturant.map((restaurant) => ( 
-            <ResturantCard key={restaurant.data.id} resData={restaurant} />
+        {filteredResturant.length > 0 ? ( 
+          filteredResturant.map((restaurant,index) => ( 
+            <ResturantCard key={index} resData={restaurant.info} />
           ))
         ) : (
-          <h3>No Top Rated Restaurants Found</h3>
+          resListResturant.map((restaurant,index) => ( 
+            <ResturantCard key={index} resData={restaurant.info} />
+          ))
         )}
       </div>    
     </div>
